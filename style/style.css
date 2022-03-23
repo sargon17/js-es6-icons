@@ -1,0 +1,17 @@
+.card {
+  width: 100%;
+  aspect-ratio: 2/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 20px;
+  transition: all 350ms ease-out;
+  cursor: pointer;
+}
+.card i {
+  font-size: 1.8em;
+}
+.card:hover {
+  background-color: rgb(233, 233, 233);
+}
