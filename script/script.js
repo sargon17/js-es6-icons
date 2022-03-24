@@ -17,7 +17,7 @@ function createCard(elementName, prefix, type, family, color) {
   card.className = "col-2";
   card.innerHTML = `<div class="card">
     <div>
-    <i class="${family} ${prefix}${elementName}" style="color:${color}"></i>
+    <i class="${family} ${prefix}${elementName} ${type}" style="color:${color}"></i>
     <p>${elementName}</p>
     </div>
     </div>`;
@@ -53,3 +53,24 @@ filterOptions.addEventListener("click", () => {
     displayFiltered(filterOpt);
   }
 });
+
+function randomColorGenerator() {
+  let color = "#";
+  for (let index = 0; index < 6; index++) {
+    let randomBit = Math.floor(Math.random() * 16);
+    color += randomBit.toString(16);
+  }
+  return color;
+}
+
+appendGeneratedColors();
+function appendGeneratedColors() {
+  categories.forEach((categorie) => {
+    let categorieColor = randomColorGenerator();
+    let element = document.querySelectorAll(`.${categorie}`);
+    element.forEach((item) => {
+      item.setAttribute("style", `color: ${categorieColor};`);
+    });
+    // console.log(element);
+  });
+}
