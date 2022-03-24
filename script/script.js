@@ -32,6 +32,27 @@ data.forEach(({ type }) => {
   }
 });
 
+function displayFiltered(filter) {
+  cardsSection.innerHTML = "";
+  if (filter !== "all") {
+    let filteredData = data.filter(({ type }) => type === filter);
+    filteredData.forEach(({ name, prefix, type, family, color }) => {
+      let card = createCard(name, prefix, type, family, color);
+      cardsSection.appendChild(card);
+    });
+  } else {
+    data.forEach(({ name, prefix, type, family, color }) => {
+      let card = createCard(name, prefix, type, family, color);
+      cardsSection.appendChild(card);
+    });
+  }
+}
+
+let filterOpt = "";
 filterOptions.addEventListener("click", () => {
-  displayFiltered();
+  if (filterOptions.value !== filterOpt) {
+    // console.log(filterOptions.value);
+    filterOpt = filterOptions.value;
+    displayFiltered(filterOpt);
+  }
 });
