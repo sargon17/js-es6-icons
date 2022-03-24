@@ -3,7 +3,6 @@ const cardsSection = document.querySelector("#cardsSection");
 const filterOptions = document.querySelector("#filterOptions");
 
 console.log(data);
-filterToDisplay(data);
 
 function filterToDisplay(database) {
   database.forEach(({ name, prefix, type, family, color }) => {
@@ -34,6 +33,8 @@ data.forEach(({ type }) => {
     filterOptions.appendChild(option);
   }
 });
+appendGeneratedColors();
+filterToDisplay(data);
 
 function displayFiltered(filter) {
   cardsSection.innerHTML = "";
@@ -63,14 +64,11 @@ function randomColorGenerator() {
   return color;
 }
 
-appendGeneratedColors();
 function appendGeneratedColors() {
   categories.forEach((categorie) => {
     let categorieColor = randomColorGenerator();
-    let element = document.querySelectorAll(`.${categorie}`);
-    element.forEach((item) => {
-      item.setAttribute("style", `color: ${categorieColor};`);
-    });
-    // console.log(element);
+    let array = data.filter((element) => element.type === categorie);
+    array.map((element) => (element.color = categorieColor));
+    console.log(array);
   });
 }
