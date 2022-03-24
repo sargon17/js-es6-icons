@@ -2,7 +2,10 @@ import { data } from "./data.js";
 const cardsSection = document.querySelector("#cardsSection");
 const filterOptions = document.querySelector("#filterOptions");
 
-console.log(data);
+let categories = [];
+categoriesReserch();
+appendGeneratedColors();
+filterToDisplay(data);
 
 function filterToDisplay(database) {
   database.forEach(({ name, prefix, type, family, color }) => {
@@ -23,18 +26,17 @@ function createCard(elementName, prefix, type, family, color) {
   return card;
 }
 
-let categories = [];
-data.forEach(({ type }) => {
-  if (!categories.includes(type)) {
-    categories.push(type);
-    let option = document.createElement("option");
-    option.value = type;
-    option.innerHTML = type;
-    filterOptions.appendChild(option);
-  }
-});
-appendGeneratedColors();
-filterToDisplay(data);
+function categoriesReserch() {
+  data.forEach(({ type }) => {
+    if (!categories.includes(type)) {
+      categories.push(type);
+      let option = document.createElement("option");
+      option.value = type;
+      option.innerHTML = type;
+      filterOptions.appendChild(option);
+    }
+  });
+}
 
 function displayFiltered(filter) {
   cardsSection.innerHTML = "";
@@ -67,8 +69,8 @@ function randomColorGenerator() {
 function appendGeneratedColors() {
   categories.forEach((categorie) => {
     let categorieColor = randomColorGenerator();
-    let array = data.filter((element) => element.type === categorie);
-    array.map((element) => (element.color = categorieColor));
-    console.log(array);
+    let array = data
+      .filter((element) => element.type === categorie)
+      .map((element) => (element.color = categorieColor));
   });
 }
