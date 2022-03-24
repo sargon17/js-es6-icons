@@ -3,11 +3,14 @@ const cardsSection = document.querySelector("#cardsSection");
 const filterOptions = document.querySelector("#filterOptions");
 
 console.log(data);
+filterToDisplay(data);
 
-data.forEach(({ name, prefix, type, family, color }) => {
-  let card = createCard(name, prefix, type, family, color);
-  cardsSection.appendChild(card);
-});
+function filterToDisplay(database) {
+  database.forEach(({ name, prefix, type, family, color }) => {
+    let card = createCard(name, prefix, type, family, color);
+    cardsSection.appendChild(card);
+  });
+}
 
 function createCard(elementName, prefix, type, family, color) {
   let card = document.createElement("div");
@@ -36,15 +39,9 @@ function displayFiltered(filter) {
   cardsSection.innerHTML = "";
   if (filter !== "all") {
     let filteredData = data.filter(({ type }) => type === filter);
-    filteredData.forEach(({ name, prefix, type, family, color }) => {
-      let card = createCard(name, prefix, type, family, color);
-      cardsSection.appendChild(card);
-    });
+    filterToDisplay(filteredData);
   } else {
-    data.forEach(({ name, prefix, type, family, color }) => {
-      let card = createCard(name, prefix, type, family, color);
-      cardsSection.appendChild(card);
-    });
+    filterToDisplay(data);
   }
 }
 
